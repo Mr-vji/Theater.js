@@ -87,7 +87,7 @@ function App() {
                   visible="editor"
                   ref={cameraTargetRef}
                >
-                  <octahedronBufferGeometry args={[0.1, 0]} />
+                  <octahedronGeometry args={[0.1, 0]} />
                   <meshPhongMaterial color="yellow" />
                </e.mesh>
                <Experience />
