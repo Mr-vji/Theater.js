@@ -15,10 +15,23 @@ import { Vji } from "./components/Vji";
 import { Second } from "./components/Second";
 import { FinalIntro } from "./components/FinalIntro";
 
-studio.initialize();
-studio.extend(extension);
+import projectState from "./assets/CarModel.theatre-project-state.json";
+export const isProd = import.meta.env.MODE === "production";
 
-const project = getProject("CarModel");
+const project = getProject(
+   "CarModel",
+   isProd
+      ? {
+           state: projectState,
+        }
+      : undefined
+);
+
+if (!isProd) {
+   studio.initialize();
+   studio.extend(extension);
+}
+
 const mainSheet = project.sheet("Main");
 
 //play the animation

@@ -1,0 +1,24 @@
+{
+  "sheetsById": {
+    "Main": {
+      "staticOverrides": {
+        "byObject": {
+          "Camera Target": {
+            "position": {
+              "x": 1.5000000000000069
+            },
+            "rotation": {
+              "y": -6.629999999999997
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitionVersion": "0.4.0",
+  "revisionHistory": [
+    "ML7N_vR2rQgySPlz",
+    "H8j207KyG85HjKqS",
+    "2aZ4ba_WwWHAgA1z"
+  ]
+}
