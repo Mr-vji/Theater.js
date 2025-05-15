@@ -2,8 +2,8 @@ import { MeshReflectorMaterial, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 export default function Ground({ ...props }) {
    const [normal, roughness] = useTexture([
-      "public/vjiTextures/terrain-normal.jpg",
-      "public/vjiTextures/terrain-roughness.jpg",
+      "./vjiTextures/terrain-normal.jpg",
+      "./vjiTextures/terrain-roughness.jpg",
    ]);
 
    // Tell textures to repeat
