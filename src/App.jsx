@@ -1,4 +1,4 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
@@ -29,7 +29,11 @@ const project = getProject(
 
 if (!isProd) {
    studio.initialize();
-   studio.extend(extension);
+
+   if (!window.__theatreR3FExtended) {
+      studio.extend(extension);
+      window.__theatreR3FExtended = true;
+   }
 }
 
 const mainSheet = project.sheet("Main");
@@ -57,7 +61,7 @@ function App() {
             range: transition[currentAni],
          });
       });
-   }, [currentAni]);
+   }, []);
 
    const color = "black";
    return (
@@ -90,6 +94,7 @@ function App() {
                   <octahedronGeometry args={[0.1, 0]} />
                   <meshPhongMaterial color="yellow" />
                </e.mesh>
+
                <Experience />
             </SheetProvider>
          </Canvas>
