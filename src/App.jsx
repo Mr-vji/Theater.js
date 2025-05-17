@@ -14,20 +14,22 @@ import { Vji } from "./components/Vji";
 import { Second } from "./components/Second";
 import { FinalIntro } from "./components/FinalIntro";
 
-import projectState from "./assets/CarModel.theatre-project-state.json";
-
-// ✅ Show Studio only in DEV (optional but good practice)
-if (import.meta.env.DEV) {
-   studio.initialize();
-   studio.extend(extension);
+// ✅ Attempt to import the project state, with error handling
+let projectState;
+try {
+   projectState = await import("./assets/CarModel.theatre-project-state.json");
+   console.log("Project state loaded successfully:", projectState);
+} catch (error) {
+   console.error("Error loading project state:", error);
 }
 
 // ✅ Correct: pass saved animation state into getProject
-const project = getProject("CarModel", { state: projectState });
+const project = getProject("CarModel", { state: projectState?.default }); // Access default if it's a module export
 const mainSheet = project.sheet("Main");
 
 function App() {
    const cameraTargetRef = useRef();
+   const [currentAni, setAni] = useState("One");
 
    // ✅ Define transitions (startTime, endTime) in seconds
    const transition = {
@@ -36,18 +38,38 @@ function App() {
       Three: [10, 16],
    };
 
-   const [currentAni, setAni] = useState("One");
-
    const One = () => setAni("One");
    const Two = () => setAni("Two");
    const Three = () => setAni("Three");
 
    // ✅ Play Theatre.js animation whenever currentAni changes
    useEffect(() => {
-      mainSheet.sequence.play({
-         range: transition[currentAni],
-      });
-   }, [currentAni]);
+      if (mainSheet && transition[currentAni]) {
+         console.log(
+            "Playing animation:",
+            currentAni,
+            "with range:",
+            transition[currentAni]
+         );
+         mainSheet.sequence.play({
+            range: transition[currentAni],
+         });
+      } else {
+         console.warn(
+            "mainSheet or transition for",
+            currentAni,
+            "is not defined."
+         );
+      }
+   }, [currentAni, mainSheet, transition]); // Ensure dependencies are correct
+
+   // ✅ Log the environment
+   useEffect(() => {
+      console.log(
+         "Current environment (import.meta.env.DEV):",
+         import.meta.env.DEV
+      );
+   }, []);
 
    const color = "black";
 
