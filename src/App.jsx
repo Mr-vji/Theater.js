@@ -64,6 +64,7 @@ function App() {
    }, [currentAni, mainSheet, transition]); // Ensure dependencies are correct
 
    console.log("vji");
+   window.alert("vji ");
 
    // ✅ Log the environment
    useEffect(() => {
