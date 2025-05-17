@@ -8,7 +8,7 @@ export const FinalIntro = () => {
             className="max-w-2xl text-left pointer-events-auto"
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 2, duration: 1.2, ease: "easeOut" }}
+            transition={{ delay: 3, duration: 1.2, ease: "easeOut" }}
          >
             <h1 className="text-[9vw] md:text-[7vw] lg:text-[5.9vw] font-extrabold leading-tight stroke-soft">
                IGNITE THE FUTURE

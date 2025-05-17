@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
 import { UI } from "./UI";
 import { Experience } from "./components/Experience";
@@ -16,26 +16,11 @@ import { Second } from "./components/Second";
 import { FinalIntro } from "./components/FinalIntro";
 
 import projectState from "./assets/CarModel.theatre-project-state.json";
-export const isProd = import.meta.env.MODE === "production";
 
-const project = getProject(
-   "CarModel",
-   isProd
-      ? {
-           state: projectState,
-        }
-      : undefined
-);
+studio.initialize();
+studio.extend(extension);
 
-if (!isProd) {
-   studio.initialize();
-
-   if (!window.__theatreR3FExtended) {
-      studio.extend(extension);
-      window.__theatreR3FExtended = true;
-   }
-}
-
+const project = getProject("CarModel");
 const mainSheet = project.sheet("Main");
 
 //play the animation
@@ -61,7 +46,9 @@ function App() {
             range: transition[currentAni],
          });
       });
-   }, []);
+   }, [currentAni]);
+
+   console.log("vji");
 
    const color = "black";
    return (
@@ -91,10 +78,9 @@ function App() {
                   visible="editor"
                   ref={cameraTargetRef}
                >
-                  <octahedronGeometry args={[0.1, 0]} />
+                  <octahedronBufferGeometry args={[0.1, 0]} />
                   <meshPhongMaterial color="yellow" />
                </e.mesh>
-
                <Experience />
             </SheetProvider>
          </Canvas>
